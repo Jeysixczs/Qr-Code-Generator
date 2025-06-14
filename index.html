@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="main-container">
+        <div class="container">
+            <h1>QR Code Generator</h1>
+            <p class="subtitle">Convert any text or URL into a QR code instantly</p>
+            
+            <div class="form-group">
+                <label for="text">Enter text or URL:</label>
+                <input type="text" id="text" placeholder="https://example.com or any text">
+                <div class="button-group">
+                    <button id="generate" class="primary-btn">Generate QR Code</button>
+                    <button id="clear" class="secondary-btn">Clear</button>
+                </div>
+            </div>
+            
+            <div class="qr-container">
+                <div id="qrcode"></div>
+                <button id="download" class="download-btn" disabled>Download QR Code</button>
+            </div>
+        </div>
+        <footer class="copyright">
+            &copy; 2025 jeysidev. All rights reserved
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
