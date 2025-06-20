@@ -3,23 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>QR Code Generator</title>
-  
-  <!-- QR‑Code library -->
+  <title>QR Code Toolkit</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-  
-  <!-- Google Font -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"/>
-  
-  <!-- Font Awesome -->
+  <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
- <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-  <!-- Dark / Light mode toggle -->
   <div class="theme-toggle">
-    <input type="checkbox" id="theme-toggle" aria-label="Toggle dark mode" hidden/>
+    <input type="checkbox" id="theme-toggle" aria-label="Toggle dark mode" hidden />
     <label for="theme-toggle" class="toggle">
       <span class="toggle__handler">
         <i class="fas fa-moon"></i>
@@ -29,37 +23,91 @@
 
   <div class="main-container">
     <div class="container">
-      <h1 class="gradient-text">QR Code Generator</h1>
-      <p class="subtitle">Convert any text or URL into a QR code instantly</p>
-      
+      <h1 class="gradient-text">QR Code Toolkit</h1>
+      <p class="subtitle">Generate and decode QR codes instantly</p>
+
       <div class="features">
-        <div class="feature-tag"><i class="fas fa-bolt"></i> Instant Generation</div>
-        <div class="feature-tag"><i class="fas fa-download"></i> Free Download</div>
+        <div class="feature-tag"><i class="fas fa-bolt"></i> Instant</div>
+        <div class="feature-tag"><i class="fas fa-download"></i> Download</div>
         <div class="feature-tag"><i class="fas fa-moon"></i> Dark Mode</div>
         <div class="feature-tag"><i class="fas fa-mobile-alt"></i> Responsive</div>
       </div>
 
-      <div class="form-group">
-        <label for="text">Enter text or URL:</label>
-        <div class="input-wrapper">
-          <i class="fas fa-link"></i>
-          <input type="text" id="text" placeholder="https://example.com or any text" />
+      <div class="mode-toggle">
+        <button id="generate-mode" class="mode-btn active">Generate QR</button>
+        <button id="decode-mode" class="mode-btn">Decode QR</button>
+      </div>
+
+      <!-- QR Generator Section -->
+      <div id="generate-container">
+        <div class="form-group">
+          <label for="text">Enter text or URL:</label>
+          <div class="input-wrapper">
+            <i class="fas fa-link"></i>
+            <input type="text" id="text" placeholder="https://example.com or any text" />
+          </div>
+          <div class="button-group">
+            <button id="generate" class="primary-btn">
+              <i class="fas fa-qrcode"></i> Generate QR Code
+            </button>
+            <button id="clear" class="secondary-btn">
+              <i class="fas fa-eraser"></i> Clear
+            </button>
+          </div>
         </div>
-        <div class="button-group">
-          <button id="generate" class="primary-btn">
-            <i class="fas fa-qrcode"></i> Generate QR Code
-          </button>
-          <button id="clear" class="secondary-btn">
-            <i class="fas fa-eraser"></i> Clear
+
+        <div class="qr-container">
+          <div id="qrcode"></div>
+          <button id="download" class="download-btn" disabled>
+            <i class="fas fa-download"></i> Download QR Code
           </button>
         </div>
       </div>
 
-      <div class="qr-container">
-        <div id="qrcode"></div>
-        <button id="download" class="download-btn" disabled>
-          <i class="fas fa-download"></i> Download QR Code
-        </button>
+      <!-- QR Decoder Section -->
+      <div id="decode-container" class="hidden">
+        <div class="decoder-options">
+          <button id="camera-btn" class="primary-btn">
+            <i class="fas fa-camera"></i> Use Camera
+          </button>
+          <button id="upload-btn" class="secondary-btn">
+            <i class="fas fa-upload"></i> Upload Image
+          </button>
+        </div>
+
+        <div id="camera-container" class="hidden">
+          <div class="scanner-frame">
+            <div class="scanner-animation"></div>
+            <video id="camera-preview" playsinline autoplay muted></video>
+          </div>
+          <button id="stop-camera" class="secondary-btn">
+            <i class="fas fa-stop"></i> Stop Camera
+          </button>
+        </div>
+
+        <div id="image-container" class="hidden">
+          <div class="image-upload-area">
+            <label for="image-upload" id="drop-zone">
+              <i class="fas fa-cloud-upload-alt"></i>
+              <p>Click to upload an image</p>
+            </label>
+            <input type="file" id="image-upload" accept="image/*" hidden>
+          </div>
+          <canvas id="image-canvas" hidden></canvas>
+        </div>
+
+        <div id="decoder-result" class="hidden">
+          <label>Decoded Text:</label>
+          <textarea id="decoded-text" rows="3" readonly></textarea>
+          <div class="decoder-actions">
+            <button id="copy-btn" class="primary-btn">
+              <i class="fas fa-copy"></i> Copy Text
+            </button>
+            <button id="clear-decoded" class="secondary-btn">
+              <i class="fas fa-eraser"></i> Clear
+            </button>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -67,7 +115,6 @@
       &copy; 2025 Jeysidev. All rights reserved
     </footer>
   </div>
-<script src="script.js"></script>
-  
+  <script src="script.js"></script>
 </body>
 </html>
